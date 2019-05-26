@@ -18,4 +18,4 @@ The following 3 classifiers can be chosen using variable _ch_ in _classify.m_
 * Put all the data files in a folder name _Data_
 * run file _pso.m_
 
-Link for algorithm details: https://ieeexplore.ieee.org/abstract/document/637339/ - automatic!
+Link for algorithm details: [Paper](https://ieeexplore.ieee.org/abstract/document/637339/)
