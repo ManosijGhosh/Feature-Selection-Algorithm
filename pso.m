@@ -2,6 +2,7 @@ function[] =pso()
     tic
     clc
     %%{
+	% data files
     x=load('Data/inputs.mat');   % Training File 
     x=x.inputs;
     t=load('Data/inputs_target.mat');  % Training label
@@ -11,20 +12,10 @@ function[] =pso()
     t2=load('Data/test_target.mat');   % Training Test Label
     t2=t2.test_target;
     %}
-    %{
-    x=importdata('data/Input.xlsx');
-    t=importdata('data/target.xlsx');
-    %size(t)
-    chr=importdata('data/selection.xlsx');
-    
-    x2=x(chr(:)==1,:);
-    t2=t(chr(:)==1,:);
-    x=x(chr(:)==0,:);
-    t=t(chr(:)==0,:);
-    %}
     disp('Imports done');
     
     n=20;   %number of points being considered
+	choice = 0; % to be made 1 if we have separate testing data
     [~,c]=size(x);
     currentPoints=datacreate(n,c);
     rankCurr=zeros(1,n);
@@ -63,29 +54,32 @@ function[] =pso()
         disp('results saved');
         disp('----------------------------------------------------------');
     end
-    %{
-     input=load('Data/Test.mat');
-    input=input.testFeature;
-    target=load('Data/TestTargets.mat');
-    target=target.testTarget;
-    
-     target=target';
-    for i=1:8
-        net=netArrayBest{i};
-        inputs=input(:,bestPoints(i,:)==1);
-        inputs=inputs';
-        output=net(inputs);
-        %size(output)
-        [c, ] = confusion(target,output);
-        disp('Final results on test set--- ');
-        fprintf('The number of features  : %d\n', sum(bestPoints(i,:)==1));
-        fprintf('Percentage Correct Classification   : %f%%\n', 100*(1-c));
-        fprintf('Percentage Incorrect Classification : %f%%\n', 100*c);
-        disp('------------------------------');        
-    end
+    if choice ==1
+		input=load('Data/Test.mat');
+		input=input.testFeature;
+		target=load('Data/TestTargets.mat');
+		target=target.testTarget;
+		
+		target=target';
+		for i=1:8
+			net=netArrayBest{i};
+			inputs=input(:,bestPoints(i,:)==1);
+			inputs=inputs';
+			output=net(inputs);
+			%size(output)
+			[c, ] = confusion(target,output);
+			disp('Final results on test set--- ');
+			fprintf('The number of features  : %d\n', sum(bestPoints(i,:)==1));
+			fprintf('Percentage Correct Classification   : %f%%\n', 100*(1-c));
+			fprintf('Percentage Incorrect Classification : %f%%\n', 100*c);
+			disp('------------------------------');        
+		end
+	end
     %}
     toc
 end
+
+% velaocity of particles updated
 function [velocity]=updateVelocity(velocity,currentPoints,bestPoints,globalBest)
     rng('shuffle');
     [n,c]=size(velocity);
@@ -95,6 +89,8 @@ function [velocity]=updateVelocity(velocity,currentPoints,bestPoints,globalBest)
         end
     end
 end
+
+% generates new feature subsets based on local and global best
 function [currentPoints,rankCurr,netArrayCurr]=updatePositions(x,t,x2,t2,velocity,currentPoints,rankCurr,netArrayCurr)
     rng('shuffle');
     [n,c]=size(velocity);
@@ -110,6 +106,8 @@ function [currentPoints,rankCurr,netArrayCurr]=updatePositions(x,t,x2,t2,velocit
         [rankCurr(1,i),netArrayCurr{i}]=classify(x,t,x2,t2,currentPoints(i,:));
     end
 end
+
+% Update the local and global best based on current population
 function [bestPoints,rankBest,netArrayBest,globalBest,rankGlobal]=updateBest(currentPoints,rankCurr,netArrayCurr,bestPoints,rankBest,globalBest,netArrayBest,rankGlobal)
     [n,~]=size(currentPoints);
     for i=1:n

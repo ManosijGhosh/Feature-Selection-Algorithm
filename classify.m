@@ -1,5 +1,5 @@
 function [per,model]=classify(x,t,x2,t2,chromosome)
-    ch = 3;
+    ch = 3; % choose the classifier
     if (ch==1)
         [per,model]=nnetwork(x,t,x2,t2,chromosome);
     elseif (ch==2)
