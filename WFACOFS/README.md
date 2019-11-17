@@ -1,4 +1,4 @@
-#WFSACO: Wrapper Filter based Ant Colony Optmization
+# WFSACO: Wrapper Filter based Ant Colony Optmization
 
 Code for paper - A wrapper-filter feature selection technique based on ant colony optimization
 

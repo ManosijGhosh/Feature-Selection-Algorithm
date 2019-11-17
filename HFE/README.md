@@ -1,4 +1,4 @@
-#HFE: Histogram based Fuzzy Ensemble
+# HFE: Histogram based Fuzzy Ensemble
 
 Code for paper - A histogram based fuzzy ensemble technique for feature selection
 

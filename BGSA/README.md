@@ -1,4 +1,4 @@
-#BGSA: Binary Gravitational Search Algorithm
+# BGSA: Binary Gravitational Search Algorithm
 
 Implementation of Binary Genetic Search Algorithm
 

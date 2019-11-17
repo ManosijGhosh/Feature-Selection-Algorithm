@@ -1,3 +1,3 @@
-#BGSA: Binary Gravitational Search Algorithm
+# CPBGSA: Clustering Population based Binary Gravitational Search Algorithm
 
 Implementation of Clustering Population based Binary Gravitational Search Algorithm

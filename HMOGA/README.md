@@ -1,4 +1,4 @@
-#HMOGA: Histogram-Based Multi-objective Genetic Algorithm
+# HMOGA: Histogram-Based Multi-objective Genetic Algorithm
 
 Code for implementation for - Feature Selection Using Histogram-Based Multi-objective GA for Handwritten Devanagari Numeral Recognition
 
